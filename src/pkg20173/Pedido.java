@@ -66,6 +66,11 @@ public class Pedido {
         this.total += total;
     }
 
+    @Override
+    public String toString() {
+        return quantidade + "x " + produtos;
+    }
     
+       
 
 }
