@@ -10,7 +10,7 @@ public class tbl01 {
    
     public static void main(String[] args) {
         JanelaHotDog janela = new JanelaHotDog(dadosIniciais());
-        janela.setSize(800,300);
+        janela.setSize(700,350);
         janela.setVisible(true);
         janela.setLocationRelativeTo(null);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
