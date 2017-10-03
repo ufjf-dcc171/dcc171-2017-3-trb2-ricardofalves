@@ -1,23 +1,42 @@
-## Synopsis
+## Nome do Aluno
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+Ricardo Furtado Alves de Paula
 
-## Code Example
+## Matricula
 
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+201576038
 
-## Motivation
+## Curso
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+Sistemas de Informação
 
-## Installation
+## Cenário de Uso do Software
 
-Provide code examples and explanations of how to get the project.
+Esse sistema foi desenvolvido pensando em carrinhos de hot dog, que utilizam o conceito de "Comandas", algo que pode ser perdido, rasgado ou simplesmente ignorado pelos clientes. Com esse sistema, fica fácil e rápido gerenciar e atender todos os seus Clientes (comandas) ativos.
 
-## API Reference
+## Modelo de Dados Utilizados
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
 
-## Tests
 
-Describe and show how to run the tests with code examples.
+## Levantamento dos Campos Utilizados 
+
+Foram criados botões com as principais ações do sistema (inclusão/exclusão de comanda/pedido, encerrar conta). Foram criados painéis de Comandas e de Pedidos (relativos a cada comanda), exibindo todos os pedidos ativos e sua quantidade. Na listagem de comandas, é possível ver o nome da comanda e seu valor total atual.
+
+Na tela de Criação de Comanda é necessário informar apenas o nome e ela será criada com o valor inicial de R$ 0,00.
+Na tela de Novo Pedido, é possível fazer seu pedido personalizado selecionando as opções dos JComboBox's de "Pães", "Recheios" e "Queijos", além de informar a quantidade do pedido.
+
+## Pontos importantes do funcionamento da interface
+
+1. Não é possível excluir uma comanda, caso ela possua um pedido em aberto.
+2. Não é possível incluir um pedido, caso não exista uma comanda selecionada.
+3. Não é possível fechar uma comanda, caso ela não tenha sido selecionada.
+4. Existe uma validação ("Sim/Não") feita para o usuário no momento de realizar um pedido e fechar a conta.
+5. Não é possível inclui um pedido sem quantidade.
+
+## Pontos de apresentaram maior dificuldade de implementação
+
+Os pontos de maior dificuldade foi realizar os tratamentos de exceção e o controle nas entradas do usuário.
+
+## Pontos onde podem ser realizadas melhorias futuras
+
+Os próximos passos dessa aplicação é começar a fazer persistência de dados, fazendo uso de um banco de dados. Além, de melhores validações nas utilizações do usuário.
