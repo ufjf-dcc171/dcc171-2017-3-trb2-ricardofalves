@@ -2,7 +2,7 @@
 
 Ricardo Furtado Alves de Paula
 
-## Matricula
+## Matrícula
 
 201576038
 
@@ -16,7 +16,7 @@ Esse sistema foi desenvolvido pensando em carrinhos de hot dog, que utilizam o c
 
 ## Modelo de Dados Utilizados
 
-
+Consultar os arquivos "Modelo de Dados.asta" ou "Modelo de Dados.jpg na raíz do projeto
 
 ## Levantamento dos Campos Utilizados 
 
@@ -35,7 +35,7 @@ Na tela de Novo Pedido, é possível fazer seu pedido personalizado selecionando
 
 ## Pontos de apresentaram maior dificuldade de implementação
 
-Os pontos de maior dificuldade foi realizar os tratamentos de exceção e o controle nas entradas do usuário.
+Os pontos de maior dificuldade foi realizar os tratamentos de exceção e o controle nas entradas do usuário. Houve uma certa dificuldade, também, na manipulação de variáveis do tipo Date.
 
 ## Pontos onde podem ser realizadas melhorias futuras
 
