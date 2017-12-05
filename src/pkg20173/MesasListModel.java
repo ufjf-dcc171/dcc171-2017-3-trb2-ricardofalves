@@ -6,25 +6,25 @@ import java.util.List;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
-public class ComandasListModel implements ListModel<Comanda> {
-    private final List<Comanda> comandas;
+public class MesasListModel implements ListModel<Mesa> {
+    private final List<Mesa> mesas;
     private final List<ListDataListener> dataListener;
 
   
 
-    public ComandasListModel(List<Comanda> comandas) {
-        this.comandas = comandas;
+    public MesasListModel(List<Mesa> mesas) {
+        this.mesas = mesas;
         this.dataListener = new ArrayList<>();
     }
    
     @Override
     public int getSize() {
-        return comandas.size();
+        return mesas.size();
     }
 
     @Override
-    public Comanda getElementAt(int i) {
-        return comandas.get(i);
+    public Mesa getElementAt(int i) {
+        return mesas.get(i);
     }
 
     @Override

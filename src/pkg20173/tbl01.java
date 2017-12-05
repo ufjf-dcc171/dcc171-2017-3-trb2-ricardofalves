@@ -16,13 +16,13 @@ public class tbl01 {
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
-     private static List<Comanda> dadosIniciais(){
-        Comanda comanda1 = new Comanda(1, "Comanda 1");
-        Comanda comanda2 = new Comanda(2, "Comanda 2");
-        Comanda comanda3 = new Comanda(3, "Comanda 3");
-        Comanda comanda4 = new Comanda(4, "Comanda 4");
+     private static List<Mesa> dadosIniciais(){
+        Mesa comanda1 = new Mesa(1, "Comanda 1");
+        Mesa comanda2 = new Mesa(2, "Comanda 2");
+        Mesa comanda3 = new Mesa(3, "Comanda 3");
+        Mesa comanda4 = new Mesa(4, "Comanda 4");
         
-        List<Comanda> comandas = new ArrayList<>();
+        List<Mesa> comandas = new ArrayList<>();
         comandas.add(comanda1);
         comandas.add(comanda2);
         comandas.add(comanda3);

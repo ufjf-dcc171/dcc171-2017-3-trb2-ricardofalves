@@ -3,20 +3,20 @@ package pkg20173;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Comanda {
+public class Mesa {
 
     private Integer numero;
-    private String nomeComanda;
+    private String nomeMesa;
     private List<Pedido> pedidos;
     private Double total = 0.0;
 
-    public Comanda() {
+    public Mesa() {
         this(null, null);
     }
 
-    public Comanda(Integer numero, String nomeComanda) {
+    public Mesa(Integer numero, String nomeComanda) {
         this.numero = numero;
-        this.nomeComanda = nomeComanda;
+        this.nomeMesa = nomeComanda;
         this.pedidos = new ArrayList<>();
     }
 
@@ -46,7 +46,7 @@ public class Comanda {
 
     @Override
     public String toString() {
-        return nomeComanda + " | Valor: " + total;
+        return nomeMesa + " | Valor: " + total;
     }
 
 }

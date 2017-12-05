@@ -21,34 +21,34 @@ import javax.swing.event.ListSelectionListener;
 
 public class JanelaHotDog extends JFrame {
 
-    private final JButton criarComanda = new JButton("Criar Comanda");
-    private final JButton excluirComanda = new JButton("Excluir Comanda");
+    private final JButton criarMesa = new JButton("Criar Mesa");
+    private final JButton excluirMesa = new JButton("Excluir Mesa");
     private final JButton criarPedido = new JButton("Adicionar Pedido");
     private final JButton excluirPedido = new JButton("Remover Pedido");
-    private final JButton fecharComanda = new JButton("Fechar Comanda");
+    private final JButton fecharMesa = new JButton("Fechar Mesa");
     private final JPanel painelBotoes = new JPanel();
 
-    private final List<Comanda> comandas;
-    private final JList<Comanda> listaComandas = new JList<>(new DefaultListModel<>());
+    private final List<Mesa> comandas;
+    private final JList<Mesa> listaComandas = new JList<>(new DefaultListModel<>());
     private final JList<Pedido> listaPedidos = new JList<>(new DefaultListModel<>());
 
     private final JanelaPedidos janelaPedidos = new JanelaPedidos();
 
-    public JanelaHotDog(List<Comanda> dados) throws HeadlessException {
+    public JanelaHotDog(List<Mesa> dados) throws HeadlessException {
         super("Cachorro Quente do ICE");
 
         this.comandas = dados;
-        listaComandas.setModel(new ComandasListModel(comandas));
+        listaComandas.setModel(new MesasListModel(comandas));
         add(new JScrollPane(listaComandas), BorderLayout.WEST);
         add(new JScrollPane(listaPedidos), BorderLayout.CENTER);
         listaComandas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         painelBotoes.setLayout(new GridLayout(1, 5));
-        painelBotoes.add(criarComanda);
-        painelBotoes.add(excluirComanda);
+        painelBotoes.add(criarMesa);
+        painelBotoes.add(excluirMesa);
         painelBotoes.add(criarPedido);
         painelBotoes.add(excluirPedido);
-        painelBotoes.add(fecharComanda);
+        painelBotoes.add(fecharMesa);
         add(painelBotoes, BorderLayout.SOUTH);
 
         listaComandas.addListSelectionListener(new ListSelectionListener() {
@@ -78,19 +78,19 @@ public class JanelaHotDog extends JFrame {
             }
         });
 
-        criarComanda.addActionListener(new ActionListener() {
+        criarMesa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o número da comanda?"));
                 String nomeComanda = "Comanda " + id;
-                Comanda comanda = new Comanda(id, nomeComanda);
+                Mesa comanda = new Mesa(id, nomeComanda);
                 comandas.add(comanda);
                 listaComandas.updateUI();
 
             }
         });
 
-        excluirComanda.addActionListener(new ActionListener() {
+        excluirMesa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (listaComandas.getSelectedValue() != null) {
@@ -121,10 +121,10 @@ public class JanelaHotDog extends JFrame {
             }
         });
 
-        fecharComanda.addActionListener(new ActionListener() {
+        fecharMesa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                Comanda comandaSelecionada = listaComandas.getSelectedValue();
+                Mesa comandaSelecionada = listaComandas.getSelectedValue();
                 if (comandaSelecionada != null) {
                     if (comandaSelecionada.getPedidos().isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Comanda Vazia", "Informação", JOptionPane.INFORMATION_MESSAGE);
