@@ -25,37 +25,39 @@ public class JanelaHotDog extends JFrame {
     private final JButton excluirMesa = new JButton("Excluir Mesa");
     private final JButton criarPedido = new JButton("Adicionar Pedido");
     private final JButton excluirPedido = new JButton("Remover Pedido");
-    private final JButton fecharMesa = new JButton("Fechar Mesa");
+    private final JButton fecharPedido = new JButton("Fechar Pedido");
+    private final JButton exibirDados = new JButton("Exibir Dados");
     private final JPanel painelBotoes = new JPanel();
 
-    private final List<Mesa> comandas;
-    private final JList<Mesa> listaComandas = new JList<>(new DefaultListModel<>());
+    private final List<Mesa> mesas;
+    private final JList<Mesa> listaMesas = new JList<>(new DefaultListModel<>());
     private final JList<Pedido> listaPedidos = new JList<>(new DefaultListModel<>());
 
-    private final JanelaPedidos janelaPedidos = new JanelaPedidos();
+    private final JanelaItens janelaPedidos = new JanelaItens();
 
     public JanelaHotDog(List<Mesa> dados) throws HeadlessException {
         super("Cachorro Quente do ICE");
 
-        this.comandas = dados;
-        listaComandas.setModel(new MesasListModel(comandas));
-        add(new JScrollPane(listaComandas), BorderLayout.WEST);
+        this.mesas = dados;
+        listaMesas.setModel(new MesasListModel(mesas));
+        add(new JScrollPane(listaMesas), BorderLayout.WEST);
         add(new JScrollPane(listaPedidos), BorderLayout.CENTER);
-        listaComandas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listaMesas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        painelBotoes.setLayout(new GridLayout(1, 5));
+        painelBotoes.setLayout(new GridLayout(1, 6));
         painelBotoes.add(criarMesa);
         painelBotoes.add(excluirMesa);
         painelBotoes.add(criarPedido);
         painelBotoes.add(excluirPedido);
-        painelBotoes.add(fecharMesa);
+        painelBotoes.add(fecharPedido);
+        painelBotoes.add(exibirDados);
         add(painelBotoes, BorderLayout.SOUTH);
 
-        listaComandas.addListSelectionListener(new ListSelectionListener() {
+        listaMesas.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent lse) {
-                if (listaComandas.getSelectedValue() != null) {
-                    listaPedidos.setModel(new PedidosListModel(listaComandas.getSelectedValue().getPedidos()));
+                if (listaMesas.getSelectedValue() != null) {
+                    listaPedidos.setModel(new PedidosListModel(listaMesas.getSelectedValue().getPedidos()));
                 } else {
                     listaPedidos.setModel(new DefaultListModel<>());
                 }
@@ -66,14 +68,14 @@ public class JanelaHotDog extends JFrame {
         criarPedido.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (listaComandas.getSelectedValue() != null) {
+                if (listaMesas.getSelectedValue() != null) {
                     janelaPedidos.setSize(350, 200);
                     janelaPedidos.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     janelaPedidos.setLocationRelativeTo(null);
                     janelaPedidos.setVisible(true);
                     janelaPedidos.fazPedido();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Selecione uma comanda", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Selecione uma mesa", "Informação", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -81,11 +83,11 @@ public class JanelaHotDog extends JFrame {
         criarMesa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o número da comanda?"));
-                String nomeComanda = "Comanda " + id;
-                Mesa comanda = new Mesa(id, nomeComanda);
-                comandas.add(comanda);
-                listaComandas.updateUI();
+                Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Qual o número da mesa?"));
+                String nomeMesa = "Mesa " + id;
+                Mesa mesa = new Mesa(id, nomeMesa);
+                mesas.add(mesa);
+                listaMesas.updateUI();
 
             }
         });
@@ -93,16 +95,13 @@ public class JanelaHotDog extends JFrame {
         excluirMesa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (listaComandas.getSelectedValue() != null) {
-                    if (!listaComandas.getSelectedValue().getPedidos().isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Comanda possui pedidos", "Informação", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        comandas.remove(listaComandas.getSelectedValue());
-                        listaComandas.clearSelection();
-                        listaComandas.updateUI();
-                    }
+                if (listaMesas.getSelectedValue() != null) {
+                    mesas.remove(listaMesas.getSelectedValue());
+                    listaMesas.clearSelection();
+                    listaMesas.updateUI();
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Selecione uma comanda", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Selecione uma mesa", "Informação", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -112,48 +111,61 @@ public class JanelaHotDog extends JFrame {
             public void actionPerformed(ActionEvent ae) {
                 Pedido pedidoSelecionado = listaPedidos.getSelectedValue();
                 if (pedidoSelecionado != null) {
-                    listaComandas.getSelectedValue().getPedidos().remove(pedidoSelecionado);
-                    listaComandas.updateUI();
+                    listaMesas.getSelectedValue().getPedidos().remove(pedidoSelecionado);
+                    listaMesas.updateUI();
                     listaPedidos.updateUI();
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione um pedido", "Informação", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
-
-        fecharMesa.addActionListener(new ActionListener() {
+        exibirDados.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                Mesa comandaSelecionada = listaComandas.getSelectedValue();
-                if (comandaSelecionada != null) {
-                    if (comandaSelecionada.getPedidos().isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Comanda Vazia", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                JanelaDados jd = new  JanelaDados();
+                jd.setLocationRelativeTo(null);
+                jd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                jd.setVisible(true);
+                
+            }
+        });
+        fecharPedido.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Pedido pedidoSelecionado = listaPedidos.getSelectedValue();
+                Mesa mesaSelecionada = listaMesas.getSelectedValue();
+                if (pedidoSelecionado != null) {
+                    if (pedidoSelecionado.getProdutos().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Pedido Vazio", "Informação", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        int mesaFechada = comandaSelecionada.getNumero();
+                        //int mesaFechada = pedidoSelecionado.getTotal();
                         DecimalFormat d = new DecimalFormat();
                         d.setMaximumFractionDigits(2);
                         d.setMinimumFractionDigits(2);
-                        int confirma = JOptionPane.showConfirmDialog(null, "Itens da Comanda: " + comandaSelecionada.getPedidos().toString(), "Confirmação", JOptionPane.OK_OPTION);
+                        int confirma = JOptionPane.showConfirmDialog(null, "Itens: " + pedidoSelecionado.getProdutos().toString(), "Confirmação", JOptionPane.OK_OPTION);
                         if (confirma == JOptionPane.YES_OPTION) {
-                            JOptionPane.showMessageDialog(null, "Conta fechada em: " + new Date() + "\nValor a pagar: R$" + d.format(comandaSelecionada.getTotal()), "Conta Fechada", JOptionPane.INFORMATION_MESSAGE);
-                            comandas.remove(comandaSelecionada);
-                            listaComandas.clearSelection();
-                            listaComandas.updateUI();
+                            double total = pedidoSelecionado.getValor() * pedidoSelecionado.getQuantidade();
+                            JOptionPane.showMessageDialog(null, "Conta fechada em: " + new Date() + "\nValor a pagar: R$" + d.format(total), "Conta Fechada", JOptionPane.INFORMATION_MESSAGE);
+                            listaPedidos.getSelectedValue().setStatusPedido(false);
+                            listaMesas.getSelectedValue().setTotal(-total);
+                            listaMesas.updateUI();
                             listaPedidos.updateUI();
+                           Dados dados = new Dados(mesaSelecionada.getNumero(), mesaSelecionada.getTotal(), mesaSelecionada.getPedidos());
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Selecione uma comanda", "Informação", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Selecione um pedido", "Informação", JOptionPane.INFORMATION_MESSAGE);
                 }
+              
             }
         });
     }
 
     void adicionaPedido(Pedido pedido) {
         double valor = pedido.getQuantidade() * pedido.getValor();
-        listaComandas.getSelectedValue().setTotal(valor);
-        listaComandas.getSelectedValue().getPedidos().add(pedido);
-        listaComandas.updateUI();
+        listaMesas.getSelectedValue().setTotal(valor);
+        listaMesas.getSelectedValue().getPedidos().add(pedido);
+        listaMesas.updateUI();
         listaPedidos.updateUI();
 
         janelaPedidos.setVisible(false);

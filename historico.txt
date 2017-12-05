@@ -1,0 +1,5 @@
+
+Mesa 3 // Valor a pagar: R$0,00 // Itens Pedidos [2x Pão de Forma + Salsicha + Cheddar ---Pedido Fechado]
+
+Mesa 2 // Valor a pagar: R$0,00 // Itens Pedidos [44x Pão de Forma + Salsicha + Cheddar ---Pedido Fechado]
+

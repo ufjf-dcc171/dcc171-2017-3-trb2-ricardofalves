@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 
-public class tbl01 {
+public class Program {
 
    
     public static void main(String[] args) {
@@ -17,10 +17,10 @@ public class tbl01 {
         
     }
      private static List<Mesa> dadosIniciais(){
-        Mesa comanda1 = new Mesa(1, "Comanda 1");
-        Mesa comanda2 = new Mesa(2, "Comanda 2");
-        Mesa comanda3 = new Mesa(3, "Comanda 3");
-        Mesa comanda4 = new Mesa(4, "Comanda 4");
+        Mesa comanda1 = new Mesa(1, "Mesa 1");
+        Mesa comanda2 = new Mesa(2, "Mesa 2");
+        Mesa comanda3 = new Mesa(3, "Mesa 3");
+        Mesa comanda4 = new Mesa(4, "Mesa 4");
         
         List<Mesa> comandas = new ArrayList<>();
         comandas.add(comanda1);

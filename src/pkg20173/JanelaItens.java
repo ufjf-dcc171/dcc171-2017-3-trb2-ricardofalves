@@ -19,9 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JanelaPedidos extends JFrame {
+public class JanelaItens extends JFrame {
 
-    private final JLabel quantidadePedidos = new JLabel("Selecione a quantidade: ");
+    private final JLabel quantidadeItens = new JLabel("Selecione a quantidade: ");
 
     private String[] paes = {"Pão de Sal", "Pão de Forma", "Pão de Hot Dog"};
     private String[] recheios = {"Salsicha", "Linguiça", "Frango", "Carne Moída"};
@@ -29,24 +29,24 @@ public class JanelaPedidos extends JFrame {
     private final JComboBox<String> pao = new JComboBox<>(paes);
     private final JComboBox<String> recheio = new JComboBox<>(recheios);
     private final JComboBox<String> queijo = new JComboBox<>(queijos);
-    private final JTextField txtPedido = new JTextField(25);
+    private final JTextField txtItem = new JTextField(25);
     private final JTextField txtQuantidade = new JTextField("texto", 10);
-    private final JButton finalizaPedido = new JButton("Finaliza Pedido");
+    private final JButton finalizaItem = new JButton("Finaliza Item");
 
     private JanelaHotDog janela;
 
-    public JanelaPedidos() throws HeadlessException {
-        super("Pedidos");
+    public JanelaItens() throws HeadlessException {
+        super("Itens");
         setLayout(new FlowLayout(FlowLayout.CENTER));
         add(pao);
         add(recheio);
         add(queijo);
 
-        txtPedido.setEditable(false);
-        add(txtPedido);
-        add(quantidadePedidos);
+        txtItem.setEditable(false);
+        add(txtItem);
+        add(quantidadeItens);
         add(txtQuantidade);
-        add(finalizaPedido);
+        add(finalizaItem);
 
         HotDogHandler handler = new HotDogHandler();
         pao.addItemListener(handler);
@@ -54,25 +54,26 @@ public class JanelaPedidos extends JFrame {
         queijo.addItemListener(handler);
         pao.setSelectedIndex(1);
 
-        finalizaPedido.addActionListener(new ActionListener() {
+        finalizaItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (txtPedido.getText() == null || txtQuantidade.getText() == null) {
-                    JOptionPane.showMessageDialog(null, "Seu pedido está vazio", "Pedido Vazio", JOptionPane.INFORMATION_MESSAGE);
+                if (txtItem.getText() == null || txtQuantidade.getText() == null) {
+                    JOptionPane.showMessageDialog(null, "Item está vazio", "Item Vazio", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     DecimalFormat d = new DecimalFormat();
                     d.setMaximumFractionDigits(2);
                     d.setMinimumFractionDigits(2);
                     Integer quantidade = Integer.parseInt(txtQuantidade.getText());
-                    int confirma = JOptionPane.showConfirmDialog(null, "Pedido feito: " + txtPedido.getText()
+                    int confirma = JOptionPane.showConfirmDialog(null, "Item pedido: " + txtItem.getText()
                             + "\nValor total: " + d.format(quantidade.doubleValue() * 5.0), "Pedido realizado", JOptionPane.OK_OPTION);
                     if (confirma == JOptionPane.OK_OPTION) {
-                        Pedido pedido = new Pedido(null, null, null, null);
-                        pedido.setAbreComanda(new Date());
-                        pedido.setProdutos(txtPedido.getText());
-                        pedido.setQuantidade(quantidade);
+                        Pedido item = new Pedido(null, null, null, null, true);
+                        item.setAbreComanda(new Date());
+                        item.setProdutos(txtItem.getText());
+                        item.setQuantidade(quantidade);
+                        item.setStatusPedido(true);
 
-                        janela.adicionaPedido(pedido);
+                        janela.adicionaPedido(item);
                     }
                 }
             }
@@ -104,7 +105,7 @@ public class JanelaPedidos extends JFrame {
             sb.append(" + ");
             sb.append((String) queijo.getSelectedItem());
 
-            txtPedido.setText(sb.toString());
+            txtItem.setText(sb.toString());
         }
     }
 

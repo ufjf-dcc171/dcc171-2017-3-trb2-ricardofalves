@@ -10,16 +10,26 @@ public class Pedido {
     private String produtos;
     private Date abreComanda;
     private Date fechaComanda;
+    private boolean statusPedido;
 
-    public Pedido() {
-        this(null, null, null, null);
+    public boolean isStatusPedido() {
+        return statusPedido;
     }
 
-    public Pedido(Integer quantidade, String produtos, Date abreComanda, Date fechaComanda) {
+    public void setStatusPedido(boolean statusPedido) {
+        this.statusPedido = statusPedido;
+    }
+
+    public Pedido() {
+        this(null, null, null, null, true);
+    }
+
+    public Pedido(Integer quantidade, String produtos, Date abreComanda, Date fechaComanda, boolean b) {
         this.quantidade = quantidade;
         this.produtos = produtos;
         this.abreComanda = abreComanda;
         this.fechaComanda = fechaComanda;
+        this.statusPedido = b;
     }
 
     public Date getAbreComanda() {
@@ -68,9 +78,10 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return quantidade + "x " + produtos;
+        if (statusPedido) {
+            return quantidade + "x " + produtos + " ---Pedido Aberto";
+        }
+        return quantidade + "x " + produtos + " ---Pedido Fechado";
     }
-    
-       
 
 }
